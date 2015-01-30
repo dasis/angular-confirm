@@ -7,7 +7,14 @@
 angular.module('angular-confirm', ['ui.bootstrap'])
 .controller('ConfirmModalController', function($scope, $modalInstance, data) {
   $scope.data = angular.copy(data);
-
+  var defaultOK = "OK";
+  var defaultCancel = "Cancel";
+  if (!$scope.data.oktext) {
+	$scope.data.oktext = defaultOK;
+  }
+  if (!$scope.data.canceltext) {
+	$scope.data.canceltext = defaultCancel;
+  }
   $scope.ok = function () {
     $modalInstance.close();
   };
@@ -17,7 +24,7 @@ angular.module('angular-confirm', ['ui.bootstrap'])
   };
 })
 .value('$confirmModalDefaults', {
-  template: '<div class="modal-header"><h3 class="modal-title">Confirm</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>',
+    template: '<div class="modal-header"><h3 class="modal-title">Confirm</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">{{data.oktext}}</button><button class="btn btn-warning" ng-click="cancel()">{{data.canceltext}}</button></div>',
   controller: 'ConfirmModalController'
 })
 .factory('$confirm', function($modal, $confirmModalDefaults) {
