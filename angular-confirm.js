@@ -16,7 +16,7 @@ angular.module('angular-confirm', ['ui.bootstrap'])
 	$scope.data.canceltext = defaultCancel;
   }
   $scope.ok = function () {
-    $modalInstance.close();
+    $modalInstance.close('ok');
   };
 
   $scope.cancel = function () {
