@@ -9,18 +9,28 @@ angular.module('angular-confirm', ['ui.bootstrap'])
   $scope.data = angular.copy(data);
   var defaultOK = "OK";
   var defaultCancel = "Cancel";
+  var cancelDefaultOption = false;
   if (!$scope.data.oktext) {
 	$scope.data.oktext = defaultOK;
   }
   if (!$scope.data.canceltext) {
 	$scope.data.canceltext = defaultCancel;
   }
+  if (!$scope.data.cancelCloseOption) {
+	$scope.data.cancelCloseOption = cancelDefaultOption;
+  }
+  
   $scope.ok = function () {
     $modalInstance.close('ok');
   };
 
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+    if ($scope.data.cancelCloseOption) {
+        $modalInstance.close('cancel');
+    }
+    else {
+        $modalInstance.dismiss('cancel');
+    }
   };
 })
 .value('$confirmModalDefaults', {
