@@ -4,6 +4,7 @@
  * Version: 1.0 - 2014-24-11
  * License: Apache
  */
+'use strict';
 angular.module('angular-confirm', ['ui.bootstrap'])
 .controller('ConfirmModalController', function($scope, $modalInstance, data) {
   $scope.data = angular.copy(data);
@@ -37,7 +38,7 @@ angular.module('angular-confirm', ['ui.bootstrap'])
     template: '<div class="modal-header"><h3 class="modal-title">Confirm</h3></div><div class="modal-body">{{data.text}}</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">{{data.oktext}}</button><button class="btn btn-warning" ng-click="cancel()">{{data.canceltext}}</button></div>',
   controller: 'ConfirmModalController'
 })
-.factory('$confirm', function($modal, $confirmModalDefaults) {
+.factory('$confirm', ['$modal', '$confirmModalDefaults', function($modal, $confirmModalDefaults) {
   return function(data, settings) {
     settings = angular.extend($confirmModalDefaults, (settings || {}));
     data = data || {};
@@ -50,7 +51,7 @@ angular.module('angular-confirm', ['ui.bootstrap'])
 
     return $modal.open(settings).result;
   };
-})
+}])
 .directive('confirm', function($confirm) {
     return {
       priority: 1,
